@@ -8,6 +8,7 @@ export const usePointsFeatures = (arrayOfFeatures, color) => {
 
   useEffect(() => {
     let arrayOfPoints = [];
+
     arrayOfFeatures.map((feature) => {
       const {
         coordinates: { lat, lon },

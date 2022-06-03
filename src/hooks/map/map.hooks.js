@@ -2,16 +2,13 @@ import React, { useState, useEffect } from "react";
 
 import { handleMapClick } from "../../components/mapWrapper/utils";
 
-import BaseLayer from "ol/layer/Base";
-import { Overlay, View, Map } from "ol";
-import { toLonLat } from "ol/proj";
+import { Map } from "ol";
 
 export const useMap = (
   target,
   rasterLayer,
   vectorLayer,
   view,
-  overlay,
   setActiveCity,
   setViewCoordinates
 ) => {
@@ -21,12 +18,12 @@ export const useMap = (
     const initialMap = new Map({
       target: target.current || undefined,
       layers: [rasterLayer, vectorLayer],
-      overlays: overlay && [overlay],
+
       view,
     });
 
     initialMap.on("click", (e) => {
-      handleMapClick(initialMap, e.pixel, e.coordinate, overlay, setActiveCity);
+      handleMapClick(initialMap, e.pixel, e.coordinate, setActiveCity);
     });
 
     initialMap.on("pointermove", (e) => {
@@ -43,7 +40,6 @@ export const useMap = (
     rasterLayer,
     vectorLayer,
     view,
-    overlay,
     setActiveCity,
     setViewCoordinates,
   ]);

@@ -10,12 +10,14 @@ import { usePointsFeatures } from "../../hooks/features/features.hooks";
 import { useLayers } from "../../hooks/layers/layers.hooks";
 import { useView } from "../../hooks/view/view.hooks";
 import { useMap } from "../../hooks/map/map.hooks";
-import { useOverlay } from "../../hooks/overlay/overlay.hooks";
+
+import { useCity } from "../../context/cities-context";
+import { useTab } from "../../context/tab-context";
 
 const cities = [
   {
     name: "Paris",
-    coordinates: { lat: 43.63003246400752, lon: 1.3650492174675548 },
+    coordinates: { lat: 48.852811356272156, lon: 2.3446346306093804 },
   },
   {
     name: "Toulouse",
@@ -24,7 +26,12 @@ const cities = [
 ];
 
 const MapWrapper = () => {
-  const [activeCity, setActiveCity] = useState(cities);
+  const cityContext = useCity();
+  const tabContext = useTab();
+
+  const [activeCityFromMap, setActiveCityFromMap] = useState(
+    cityContext.state.activeCity
+  );
   const [viewCoordinates, setViewCoordinates] = useState({
     lat: 2.36,
     lon: 46.63,
@@ -32,22 +39,37 @@ const MapWrapper = () => {
   });
 
   const mapElement = useRef(null);
-  const infoElement = useRef(null);
 
-  const pointFeatures = usePointsFeatures(activeCity, "#1a48ed");
+  const pointFeatures = usePointsFeatures(cities, "#1a48ed");
   const { rasterLayer, vectorLayer } = useLayers(pointFeatures);
   const view = useView(viewCoordinates);
-  const overlay = useOverlay(infoElement);
-
-  useMap(
+  const map = useMap(
     mapElement,
     rasterLayer,
     vectorLayer,
     view,
-    overlay,
-    setActiveCity,
+    setActiveCityFromMap,
     setViewCoordinates
   );
+
+  // useEffect(() => {
+  //   const {
+  //     state: { activeCity },
+  //   } = cityContext;
+  //   console.log(activeCity);
+  //   console.log(activeCityFromMap);
+  //   if (activeCity !== activeCityFromMap) {
+  //     cityContext.dispatch({
+  //       type: "SET_ACTIVE_CITY",
+  //       payload: activeCityFromMap,
+  //     });
+  //     tabContext.dispatch({ type: "SET_TAB", payload: "chart" });
+  //   }
+  // }, [activeCityFromMap]);
+
+  useEffect(() => {
+    console.log(activeCityFromMap);
+  }, [activeCityFromMap]);
 
   return (
     <ContentWrapper>
@@ -55,13 +77,7 @@ const MapWrapper = () => {
         ref={mapElement}
         className='map-container map drop-shadow-md '
         style={{ width: "80%", height: "700px" }}
-      >
-        <div
-          ref={infoElement}
-          className='p-2 drop-shadow-md bg-slate-200'
-          style={{ width: 250, height: 220 }}
-        ></div>
-      </div>
+      ></div>
     </ContentWrapper>
   );
 };

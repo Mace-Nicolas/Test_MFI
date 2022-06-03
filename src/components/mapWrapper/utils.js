@@ -1,13 +1,12 @@
 import React from "react";
 
-import { fromLonLat } from "ol/proj";
+import { fromLonLat, toLonLat } from "ol/proj";
 import "ol/ol.css";
-import Feature, { FeatureLike } from "ol/Feature";
+import Feature from "ol/Feature";
 
 import Point from "ol/geom/Point";
 import { Style } from "ol/style";
 import { Circle, Fill, Stroke } from "ol/style";
-import { Map, Overlay } from "ol";
 
 export const createFeature = (
   arrayOfFeatures,
@@ -36,16 +35,10 @@ export const createFeature = (
   return (arrayOfFeatures = [...arrayOfFeatures, feature]);
 };
 
-export const handleMapClick = (
-  map,
-  pixel,
-  coordinates,
-  popup,
-  setActiveCity
-) => {
-  popup?.setPosition(undefined);
+export const handleMapClick = (map, pixel, coordinates, setActiveCity) => {
   map.forEachFeatureAtPixel(pixel, (feature) => {
-    setActiveCity(feature.get("name"));
-    popup?.setPosition([coordinates[0], coordinates[1]]);
+    const newCoord = toLonLat(coordinates);
+    const newCoordinates = [newCoord[1], newCoord[0]];
+    setActiveCity({ name: feature.get("name"), coordinates: newCoordinates });
   });
 };
