@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
@@ -8,6 +8,7 @@ import { getForecastFromLonLat } from "../../data/APIs/APIs";
 
 import { options } from "./utils";
 import { useCity } from "../../context/cities-context";
+import { useForecast } from "../../hooks/forecast/forecast.hooks";
 
 const LineChart = () => {
   const {
@@ -16,20 +17,27 @@ const LineChart = () => {
     },
   } = useCity();
 
-  const getData = async () => {
-    console.log(name);
-    const data = await getForecastFromLonLat(coordinates[1], coordinates[0]);
-    console.log(data);
-  };
+  const [optionsForChart, setOptionsForChart] = useState(options);
+  const { humidity, temperatures, xAxisDates } = useForecast(coordinates);
 
   useEffect(() => {
-    getData();
-  }, []);
+    if (humidity.length === 3) {
+      setOptionsForChart({
+        ...optionsForChart,
+        series: [
+          { name: "Temperature", data: temperatures },
+          { name: "Humidity", data: humidity },
+        ],
+        title: { text: `3 Days forecast in ${name}` },
+        xAxis: { categories: xAxisDates },
+      });
+    }
+  }, [humidity, temperatures, name, xAxisDates]);
 
   return (
     <div>
       <ContentWrapper>
-        <HighchartsReact highcharts={Highcharts} options={options} />
+        <HighchartsReact highcharts={Highcharts} options={optionsForChart} />
       </ContentWrapper>
     </div>
   );

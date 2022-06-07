@@ -6,18 +6,24 @@ export const options = {
     text: "3 Days forecast",
   },
   xAxis: {
-    type: "category",
+    categories: [],
   },
-  yAxis: {
-    title: {
-      text: "Amount",
-    },
-  },
+
   legend: {
     enabled: false,
   },
   series: [
-    { name: "Temperature", data: [12, 15, 18] },
-    { name: "Humidity", data: [30, 50, 25] },
+    { name: "Temperature", data: [], tooltip: { valueSuffix: "°C" } },
+    { name: "Humidity", data: [], tooltip: { valueSuffix: "%" } },
   ],
+  tooltip: {
+    shared: true,
+  },
+  plotOptions: {
+    line: {
+      dataLabels: {
+        enabled: true,
+      },
+    },
+  },
 };

@@ -1,5 +1,3 @@
-import React from "react";
-
 import { fromLonLat, toLonLat } from "ol/proj";
 import "ol/ol.css";
 import Feature from "ol/Feature";
@@ -42,3 +40,18 @@ export const handleMapClick = (map, pixel, coordinates, setActiveCity) => {
     setActiveCity({ name: feature.get("name"), coordinates: newCoordinates });
   });
 };
+
+export const cities = [
+  {
+    name: "Paris",
+    coordinates: { lat: 48.852811356272156, lon: 2.3446346306093804 },
+  },
+  {
+    name: "Toulouse",
+    coordinates: { lat: 43.63003246400752, lon: 1.3650492174675548 },
+  },
+  {
+    name: "Biarritz",
+    coordinates: { lat: 43.48151698465427, lon: -1.5608136484360844 },
+  },
+];

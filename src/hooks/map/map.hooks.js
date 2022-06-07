@@ -10,7 +10,8 @@ export const useMap = (
   vectorLayer,
   view,
   setActiveCity,
-  setViewCoordinates
+  setViewCoordinates,
+  cityHasChanged
 ) => {
   const [map, setMap] = useState();
 
@@ -24,6 +25,9 @@ export const useMap = (
 
     initialMap.on("click", (e) => {
       handleMapClick(initialMap, e.pixel, e.coordinate, setActiveCity);
+      const pixel = initialMap.getEventPixel(e.originalEvent);
+      const hit = initialMap.hasFeatureAtPixel(pixel);
+      if (hit) cityHasChanged();
     });
 
     initialMap.on("pointermove", (e) => {

@@ -1,17 +1,14 @@
 import React from "react";
 import Navbar from "./components/navbar/navbar.component";
 import ScreenContainer from "./components/screenContainer/screenContainer.component";
-import { CityProvider } from "./context/cities-context";
-import { TabProvider } from "./context/tab-context";
+import ContextProvider from "./context/provider-context";
 
 const App = () => {
   return (
-    <TabProvider>
-      <CityProvider>
-        <Navbar />
-        <ScreenContainer />
-      </CityProvider>
-    </TabProvider>
+    <ContextProvider>
+      <Navbar />
+      <ScreenContainer />
+    </ContextProvider>
   );
 };
 

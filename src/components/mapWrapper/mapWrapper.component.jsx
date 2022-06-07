@@ -13,22 +13,13 @@ import { useMap } from "../../hooks/map/map.hooks";
 
 import { useCity } from "../../context/cities-context";
 import { useTab } from "../../context/tab-context";
-
-const cities = [
-  {
-    name: "Paris",
-    coordinates: { lat: 48.852811356272156, lon: 2.3446346306093804 },
-  },
-  {
-    name: "Toulouse",
-    coordinates: { lat: 43.63003246400752, lon: 1.3650492174675548 },
-  },
-];
+import { cities } from "./utils";
 
 const MapWrapper = () => {
   const cityContext = useCity();
   const tabContext = useTab();
 
+  const [cityHasChanged, setCityHasChanged] = useState(false);
   const [activeCityFromMap, setActiveCityFromMap] = useState(
     cityContext.state.activeCity
   );
@@ -39,7 +30,6 @@ const MapWrapper = () => {
   });
 
   const mapElement = useRef(null);
-
   const pointFeatures = usePointsFeatures(cities, "#1a48ed");
   const { rasterLayer, vectorLayer } = useLayers(pointFeatures);
   const view = useView(viewCoordinates);
@@ -49,27 +39,22 @@ const MapWrapper = () => {
     vectorLayer,
     view,
     setActiveCityFromMap,
-    setViewCoordinates
+    setViewCoordinates,
+    () => setCityHasChanged(true)
   );
 
-  // useEffect(() => {
-  //   const {
-  //     state: { activeCity },
-  //   } = cityContext;
-  //   console.log(activeCity);
-  //   console.log(activeCityFromMap);
-  //   if (activeCity !== activeCityFromMap) {
-  //     cityContext.dispatch({
-  //       type: "SET_ACTIVE_CITY",
-  //       payload: activeCityFromMap,
-  //     });
-  //     tabContext.dispatch({ type: "SET_TAB", payload: "chart" });
-  //   }
-  // }, [activeCityFromMap]);
-
   useEffect(() => {
-    console.log(activeCityFromMap);
-  }, [activeCityFromMap]);
+    if (cityHasChanged) {
+      tabContext.dispatch({ type: "SET_TAB", payload: "charts" });
+      cityContext.dispatch({
+        type: "SET_ACTIVE_CITY",
+        payload: activeCityFromMap,
+      });
+      setTimeout(() => {
+        setCityHasChanged(false);
+      }, 0);
+    }
+  }, [cityHasChanged]);
 
   return (
     <ContentWrapper>
