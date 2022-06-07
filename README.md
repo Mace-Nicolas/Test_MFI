@@ -2,7 +2,7 @@
 
 ## Mise en route
 
-Cloner le repo
+## git clone https://github.com/Mace-Nicolas/Test_MFI.git
 
 ## cd Test_MFI
 
