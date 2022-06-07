@@ -50,9 +50,7 @@ const MapWrapper = () => {
         type: "SET_ACTIVE_CITY",
         payload: activeCityFromMap,
       });
-      setTimeout(() => {
-        setCityHasChanged(false);
-      }, 0);
+      setCityHasChanged(false);
     }
   }, [cityHasChanged]);
 

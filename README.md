@@ -1,17 +1,26 @@
-# Test pour MFI, Application Météo
+# Test pour Meteo France International, Application Météo
 
-Une application facile à utiliser pour visualiser les prévisions météo sur 3 jours.
+Le but de cette application est d'avoir sur un fond de carte, l'emplacement des villes et en cliquant dessus, leurs prévisions météo sur 3 jours.
 
-## Utilisation
+## Spécifications
 
-- Lancer la commande suivante dans le terminal
+Cette application est développée avec React, OpenLayer pour la carte et HighCharts pour les graphiques.
+Les données météo viennent de l'API d'OpenWeather.
+
+## Installation
+
+- Cloner le repo dans votre environnement local
 
 ```bash
     git clone https://github.com/Mace-Nicolas/Test_MFI.git
     cd Test_MFI
 ```
 
+Vous pouvez ensuite choisir de le lancer via Docker ou via NPM:
+
 ## Lancement via Docker
+
+Si vous souhaitez utiliser Docker:
 
 - Lancer l'application Docker
 - Construire l'image et importer les dépendances:
@@ -27,6 +36,8 @@ docker-compose up
 ```
 
 ## Lancement via npm
+
+Si vous souhaitez utiliser NPM
 
 - Installer les dépendances
 
