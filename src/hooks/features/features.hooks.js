@@ -1,6 +1,4 @@
-import { Feature } from "ol";
-import { Point } from "ol/geom";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { createPoint } from "./utils";
 
 export const usePointsFeatures = (arrayOfFeatures, color) => {

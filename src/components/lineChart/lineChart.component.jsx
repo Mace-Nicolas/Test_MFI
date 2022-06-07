@@ -4,7 +4,6 @@ import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 
 import ContentWrapper from "../contentWrapper/contentWrapper.component";
-import { getForecastFromLonLat } from "../../data/APIs/APIs";
 
 import { options } from "./utils";
 import { useCity } from "../../context/cities-context";
@@ -22,15 +21,15 @@ const LineChart = () => {
 
   useEffect(() => {
     if (humidity.length === 3) {
-      setOptionsForChart({
-        ...optionsForChart,
+      setOptionsForChart((prev) => ({
+        ...prev,
         series: [
           { name: "Temperature", data: temperatures },
           { name: "Humidity", data: humidity },
         ],
         title: { text: `3 Days forecast in ${name}` },
         xAxis: { categories: xAxisDates },
-      });
+      }));
     }
   }, [humidity, temperatures, name, xAxisDates]);
 

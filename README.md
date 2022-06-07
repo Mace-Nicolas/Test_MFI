@@ -1,17 +1,43 @@
-# Formation React MFI
+# Test pour MFI, Application Météo
 
-## Mise en route
+Une application facile à utiliser pour visualiser les prévisions météo sur 3 jours.
 
-## git clone https://github.com/Mace-Nicolas/Test_MFI.git
+## Utilisation
 
-## cd Test_MFI
+- Lancer la commande suivante dans le terminal
 
-## docker-compose build
+```bash
+    git clone https://github.com/Mace-Nicolas/Test_MFI.git
+    cd Test_MFI
+```
 
-Pour construire l'image et importer les dépendances
+## Lancement via Docker
 
-## docker-compose up
+- Lancer l'application Docker
+- Construire l'image et importer les dépendances:
 
-Pour démarrer le container
+```bash
+docker-compose build
+```
 
-## Aller à "localhost:3000"
+- Démarrer le container
+
+```bash
+docker-compose up
+```
+
+## Lancement via npm
+
+- Installer les dépendances
+
+```bash
+npm install
+```
+
+- Lancer l'environnement local
+
+```bash
+npm start
+```
+
+Aller à "localhost:3000" dans le navigateur

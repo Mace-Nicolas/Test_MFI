@@ -14,12 +14,12 @@ const Navbar = () => {
     <nav className='flex items-center w-full bg-black justify-evenly h-16 '>
       <PlainButton
         title='Map'
-        isActive={activeTab === "map" && true}
+        isActive={activeTab === "map"}
         onClick={() => dispatch({ type: "SET_TAB", payload: "map" })}
       />
       <PlainButton
         title='Charts'
-        isActive={activeTab === "charts" && true}
+        isActive={activeTab === "charts"}
         onClick={() => dispatch({ type: "SET_TAB", payload: "charts" })}
       />
     </nav>

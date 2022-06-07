@@ -1,5 +1,4 @@
-import { Feature } from "ol";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import { createVectorsAndLayers } from "../features/utils";
 
